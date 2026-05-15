@@ -5,16 +5,20 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.net.URI;
 import java.time.Duration;
+import java.util.List;
 
 public class AppiumTest {
 
     public AppiumDriverLocalService service;
-    public AndroidDriver driver;
+    public static AndroidDriver driver;
 
     @Test
     public void openDevice() throws Exception {
@@ -40,10 +44,34 @@ public class AppiumTest {
         driver.findElement(AppiumBy.id("com.androidsample.generalstore:id/radioFemale")).click();
         driver.findElement(AppiumBy.className("android.widget.Button")).click();
 
-        System.out.println(driver.findElement(AppiumBy.id("com.androidsample.generalstore:id/toolbar_title")).getText());
+        //System.out.println(driver.findElement(AppiumBy.id("com.androidsample.generalstore:id/toolbar_title")).getText());
+        String text = "Jordan 6 Rings";
+        String UiScrollable = "new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().text(\"" + text + "\"))";
+        driver.findElement(AppiumBy.androidUIAutomator(UiScrollable)).click();
+
+        List<WebElement> productnames = driver.findElements(AppiumBy.id("com.androidsample.generalstore:id/productName"));
+        List<WebElement> addToCart = driver.findElements(AppiumBy.id("com.androidsample.generalstore:id/productAddCart"));
+
+        for(WebElement name : productnames){
+            if(name.getText().equals("Jordan 6 Rings")){  // Found at index 1
+                int index = productnames.indexOf(name);    // index = 1
+                addToCart.get(index).click();              // Click btn2
+                break;
+            }
+        }
+
+//        for (int i = 0; i < productnames.size(); i++) {
+//
+//            if (productnames.get(i).getText().equals(text)){
+//
+//                addToCart.get(i).click();
+//                break;
+//            }
+//        }
 
         driver.quit();
         service.stop();
+
     }
 
 }
