@@ -1,8 +1,6 @@
 package org.automation;
 
 import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 public class ProductPageTest extends AppiumTest {

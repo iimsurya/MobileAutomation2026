@@ -6,8 +6,6 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -36,7 +34,6 @@ public class AppiumTest {
         driver = new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), option);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 
-        // Your automation code here
 
         driver.findElement(AppiumBy.id("android:id/text1")).click();
         driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id='android:id/text1' and @text='Argentina']")).click();
@@ -59,15 +56,6 @@ public class AppiumTest {
                 break;
             }
         }
-
-//        for (int i = 0; i < productnames.size(); i++) {
-//
-//            if (productnames.get(i).getText().equals(text)){
-//
-//                addToCart.get(i).click();
-//                break;
-//            }
-//        }
 
         driver.quit();
         service.stop();
